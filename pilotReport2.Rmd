@@ -63,6 +63,7 @@ library(knitr) # for kable table formating
 library(haven) # import and export 'SPSS', 'Stata' and 'SAS' Files
 library(readxl) # import excel files
 library(CARPSreports) # custom report functions
+library(heplots)
 ```
 
 [PILOT/COPILOT DO NOT MAKE CHANGES TO THE CODE CHUNK BELOW]
@@ -95,16 +96,25 @@ head(data)
 [you can remove this section if no pre-processing is required]
 
 ```{r}
+
+#I don't think I need to pre-process anything. 
 ```
 
 ## Descriptive statistics
 
 ```{r}
+summary(data)
 ```
 
 ## Inferential statistics
 
 ```{r}
+# Compute the analysis of variance
+res.aov <- aov(intellect ~ Condition, data = data)
+# Summary of the analysis
+summary(res.aov)
+
+etasq(res.aov) 
 ```
 
 # Step 5: Conclusion
