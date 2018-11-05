@@ -102,14 +102,34 @@ head(data)
 ## Descriptive statistics
 
 ```{r}
-summary(data)
-
 int_aud <- data %>%
   filter(audio == 1) %>% 
   summarize(mean_int_aud = mean(intellect, na.rm = TRUE) ,sd_int_aud = sd(intellect, na.rm = TRUE))
 
+
+#z-scores for audio, transcript, and video conditions for intellect
 z_aud <- (int_aud$mean_int_aud[1] - mean(intellect, na.rm = TRUE))/sd(intellect,na.rm = TRUE)
 
+int_tra <- data %>%
+  filter(transcript == 1) %>% 
+  summarize(mean_int_tra = mean(intellect, na.rm = TRUE) ,sd_int_tra = sd(intellect, na.rm = TRUE))
+
+z_tra <- (int_tra$mean_int_tra[1] - mean(intellect, na.rm = TRUE))/sd(intellect,na.rm = TRUE)
+
+int_vid <- data %>%
+  filter(video == 1) %>% 
+  summarize(mean_int_vid = mean(intellect, na.rm = TRUE) ,sd_int_vid = sd(intellect, na.rm = TRUE))
+
+z_vid <- (int_tra$mean_int_tra[1] - mean(intellect, na.rm = TRUE))/sd(intellect,na.rm = TRUE)
+
+int_aud
+int_tra
+int_vid
+
+
+c(z_aud, z_tra, z_video)
+
+#z-scores for audio, transcript, and video conditions for 
 ```
 
 ## Inferential statistics
