@@ -151,7 +151,7 @@ z_vid_imp <- (imp_vid$mean_imp_vid[1] - mean(impression, na.rm = TRUE))/sd(impre
 
 imp_aud
 imp_tra
-imp_vid
+imp_vid   
 
 c(z_aud_imp, z_tra_imp, z_vid_imp)
 
