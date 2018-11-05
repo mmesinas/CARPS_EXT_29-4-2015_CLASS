@@ -127,7 +127,6 @@ int_aud
 int_tra
 int_vid
 
-
 c(z_aud, z_tra, z_vid)
 
 #z-scores for audio, transcript, and video conditions for general impression
@@ -148,8 +147,39 @@ imp_vid <- data %>%
   filter(video == 1) %>% 
   summarize(mean_imp_vid = mean(impression, na.rm = TRUE) ,sd_imp_vid = sd(impression, na.rm = TRUE))
 
+z_vid_imp <- (imp_vid$mean_imp_vid[1] - mean(impression, na.rm = TRUE))/sd(impression,na.rm = TRUE)
 
+imp_aud
+imp_tra
+imp_vid
 
+c(z_aud_imp, z_tra_imp, z_vid_imp)
+
+#z-scores for audio, transcript, and video conditions for hiring likelihood
+
+hire_aud <- data %>%
+  filter(audio == 1) %>% 
+  summarize(mean_hire_aud = mean(hire, na.rm = TRUE) ,sd_hire_aud = sd(hire, na.rm = TRUE))
+
+z_aud_hire <- (hire_aud$mean_hire_aud[1] - mean(hire, na.rm = TRUE))/sd(hire,na.rm = TRUE)
+
+hire_tra <- data %>%
+  filter(transcript == 1) %>% 
+  summarize(mean_hire_tra = mean(hire, na.rm = TRUE) ,sd_hire_tra = sd(hire, na.rm = TRUE))
+
+z_tra_hire <- (hire_tra$mean_hire_tra[1] - mean(hire, na.rm = TRUE))/sd(hire,na.rm = TRUE)
+
+hire_vid <- data %>%
+  filter(video == 1) %>% 
+  summarize(mean_hire_vid = mean(hire, na.rm = TRUE) ,sd_hire_vid = sd(hire, na.rm = TRUE))
+
+z_vid_hire <- (hire_vid$mean_hire_vid[1] - mean(hire, na.rm = TRUE))/sd(hire,na.rm = TRUE)
+
+hire_aud
+hire_tra
+hire_vid
+
+c(z_aud_hire,z_tra_hire,z_vid_hire)
 
 ```
 
@@ -158,10 +188,47 @@ imp_vid <- data %>%
 ```{r}
 # Compute the analysis of variance
 res.aov <- aov(intellect ~ Condition, data = data)
+
 # Summary of the analysis
 summary(res.aov)
 
+#Eta squared 
 etasq(res.aov) 
+
+#T-test for audio and transcript on intellect rating
+with(data, t.test(intellect[audio == 1], intellect[transcript == 1]))
+
+#T-test for audio and video on intellect rating
+with(data, t.test(intellect[audio == 1], intellect[video == 1]))
+
+#T-test for audio and transcript on impression rating 
+with(data, t.test(impression[audio == 1], impression[transcript == 1]))
+
+#T-test for audio and transcript on hire rating 
+with(data, t.test(hire[audio == 1], hire[transcript == 1]))
+
+#Cohen's d for audio and transcript on intellect ratings 
+mean_aud <- int_aud[1]
+mean_trans <- int_tra[1]
+
+sd_aud <- int_aud[2]
+sd_trans <- int_tra[2]
+
+n_1_2 <- 54
+
+alpha_int <- .88
+
+pooled_sd_n <- (((n_1_2 - 1)*(sd_aud**2))+(n_1_2 - 1)*(sd_trans**2))
+pooled_sd_d <- ((n_1_2*2)-2)
+
+pooled_sd <- sqrt(pooled_sd_n/pooled_sd_d)
+
+cohens.d <- (mean_aud - mean_trans) / pooled_sd
+
+cohens.d
+
+#Cohen's d for audio and transcript on impression ratings
+
 ```
 
 # Step 5: Conclusion
