@@ -96,7 +96,6 @@ head(data)
 [you can remove this section if no pre-processing is required]
 
 ```{r}
-
 #I don't think I need to pre-process anything. 
 ```
 
@@ -104,6 +103,13 @@ head(data)
 
 ```{r}
 summary(data)
+
+int_aud <- data %>%
+  filter(audio == 1) %>% 
+  summarize(mean_int_aud = mean(intellect, na.rm = TRUE) ,sd_int_aud = sd(intellect, na.rm = TRUE))
+
+z_aud <- (int_aud$mean_int_aud[1] - mean(intellect, na.rm = TRUE))/sd(intellect,na.rm = TRUE)
+
 ```
 
 ## Inferential statistics
