@@ -228,9 +228,36 @@ cohens.d <- (mean_aud - mean_trans) / pooled_sd
 cohens.d
 
 #Cohen's d for audio and transcript on impression ratings
+mean_aud <- imp_aud[1]
+mean_trans <- imp_tra[1]
 
+sd_aud <- imp_aud[2]
+sd_trans <- imp_tra[2]
 
+n_1_2 <- 54
 
+alpha_int <- .89
+
+pooled_sd_n <- (((n_1_2 - 1)*(sd_aud**2))+(n_1_2 - 1)*(sd_trans**2))
+
+pooled_sd_d <- sqrt(pooled_sd_n/pooled_sd_d)
+
+cohens.d <- (mean_aud - mean_trans) / pooled_sd 
+
+#Cohens d for audio and transcript on hire ratings 
+mean_aud <- hire_aud[1]
+mean_trans <- hire_tra[1]
+
+sd_aud <- hire_aud[2]
+sd_trans <- hire_tra[2]
+
+n_1_2 <- 54
+
+pooled_sd_n <- (((n_1_2 - 1)*(sd_aud**2))+(n_1_2 - 1)*(sd_trans**2))
+
+pooled_sd_d <- sqrt(pooled_sd_n/pooled_sd_d)
+
+cohens.d <- (mean_aud - mean_trans) / pooled_sd
 ```
 
 # Step 5: Conclusion
