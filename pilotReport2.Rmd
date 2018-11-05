@@ -102,12 +102,13 @@ head(data)
 ## Descriptive statistics
 
 ```{r}
+
+#z-scores for audio, transcript, and video conditions for intellect
+
 int_aud <- data %>%
   filter(audio == 1) %>% 
   summarize(mean_int_aud = mean(intellect, na.rm = TRUE) ,sd_int_aud = sd(intellect, na.rm = TRUE))
 
-
-#z-scores for audio, transcript, and video conditions for intellect
 z_aud <- (int_aud$mean_int_aud[1] - mean(intellect, na.rm = TRUE))/sd(intellect,na.rm = TRUE)
 
 int_tra <- data %>%
@@ -120,16 +121,36 @@ int_vid <- data %>%
   filter(video == 1) %>% 
   summarize(mean_int_vid = mean(intellect, na.rm = TRUE) ,sd_int_vid = sd(intellect, na.rm = TRUE))
 
-z_vid <- (int_tra$mean_int_tra[1] - mean(intellect, na.rm = TRUE))/sd(intellect,na.rm = TRUE)
+z_vid <- (int_vid$mean_int_vid[1] - mean(intellect, na.rm = TRUE))/sd(intellect,na.rm = TRUE)
 
 int_aud
 int_tra
 int_vid
 
 
-c(z_aud, z_tra, z_video)
+c(z_aud, z_tra, z_vid)
 
-#z-scores for audio, transcript, and video conditions for 
+#z-scores for audio, transcript, and video conditions for general impression
+
+imp_aud <- data %>%
+  filter(audio == 1) %>% 
+  summarize(mean_imp_aud = mean(impression, na.rm = TRUE) ,sd_imp_aud = sd(impression, na.rm = TRUE))
+
+z_aud_imp <- (imp_aud$mean_imp_aud[1] - mean(impression, na.rm = TRUE))/sd(impression,na.rm = TRUE)
+
+imp_tra <- data %>%
+  filter(transcript == 1) %>% 
+  summarize(mean_imp_tra = mean(impression, na.rm = TRUE) ,sd_imp_tra = sd(impression, na.rm = TRUE))
+
+z_tra_imp <- (imp_tra$mean_imp_tra[1] - mean(impression, na.rm = TRUE))/sd(impression,na.rm = TRUE)
+
+imp_vid <- data %>%
+  filter(video == 1) %>% 
+  summarize(mean_imp_vid = mean(impression, na.rm = TRUE) ,sd_imp_vid = sd(impression, na.rm = TRUE))
+
+
+
+
 ```
 
 ## Inferential statistics
